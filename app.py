@@ -1,21 +1,28 @@
 import os
-from flask import Flask
 from threading import Thread
+from flask import Flask
 
-app = Flask('')
+# Create a minimal Flask app
+app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is running!"
 
-def run():
+def run_http_server():
+    # Render automatically provides the PORT environment variable
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
 
-# Run Flask in a background thread so it doesn't block your bot
-Thread(target=run).start()
+# Run the Flask server in a separate background thread
+Thread(target=run_http_server).start()
 
-# Place your existing Telegram bot start logic below
+# ==========================================
+# YOUR EXISTING TELEGRAM BOT CODE GOES HERE
+# ==========================================
+# Example:
+# bot.run() or asyncio.run(main())
+
 
 
 import os
